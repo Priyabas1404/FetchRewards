@@ -2,7 +2,7 @@ package com.example.fetchrewards.ui
 
 import androidx.lifecycle.ViewModel
 import com.example.fetchrewards.data.repository.ItemRepository
-import com.example.fetchrewards.data.vo.datalist
+import com.example.fetchrewards.data.vo.DataList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ItemViewModel @Inject constructor(private val repository: ItemRepository) : ViewModel() {
-    private val _items = MutableStateFlow<Map<Int, List<datalist>>>(emptyMap())
-    val items: StateFlow<Map<Int, List<datalist>>> get() = _items
+    private val _items = MutableStateFlow<Map<Int, List<DataList>>>(emptyMap())
+    val items: StateFlow<Map<Int, List<DataList>>> get() = _items
 
     private suspend fun fetchItems() {
         try {

@@ -1,31 +1,30 @@
 package com.example.fetchrewards.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fetchrewards.R
-import com.example.fetchrewards.data.vo.datalist
+import com.example.fetchrewards.data.vo.DataList
+import com.example.fetchrewards.databinding.ItemListBinding
 
-class ListItemsAdapter(private val listItems: List<datalist>) : RecyclerView.Adapter<ListItemsAdapter.ItemsViewHolder>() {
+class ListItemsAdapter(private val listItems: List<DataList>) : RecyclerView.Adapter<ListItemsAdapter.ItemsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
-        return ItemsViewHolder(view)
+        val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ItemsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
-        val items = listItems[position]
-        holder.id.text = items.id.toString()
-        holder.listId.text = items.listId.toString()
-        holder.name.text = items.name.toString()
+        holder.bind(listItems[position])
     }
 
     override fun getItemCount(): Int = listItems.size
 
-    inner class ItemsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val id: TextView = itemView.findViewById(R.id.id)
-        val listId: TextView = itemView.findViewById(R.id.listId)
-        val name: TextView = itemView.findViewById(R.id.name)
+    inner class ItemsViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(DataList: DataList) {
+            binding.id.text = DataList.id.toString()
+            binding.listId.text = DataList.listId.toString()
+            binding.name.text = DataList.name.toString()
+        }
     }
 }

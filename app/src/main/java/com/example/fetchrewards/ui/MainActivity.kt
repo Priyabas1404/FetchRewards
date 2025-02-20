@@ -31,11 +31,14 @@ class MainActivity : AppCompatActivity() {
                     apiService.getListItems()
                 }
 
-                // Update the UI with the data
-                val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
-                recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-                val adapter = ListItemsAdapter(items)
-                recyclerView.adapter = adapter
+                if (items.isNotEmpty()) {
+                    val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
+                    recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+                    val adapter = ListItemsAdapter(items)
+                    recyclerView.adapter = adapter
+                } else {
+                    Toast.makeText(this@MainActivity, "No items found", Toast.LENGTH_SHORT).show()
+                }
 
             } catch (e: Exception) {
                 Toast.makeText(this@MainActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()

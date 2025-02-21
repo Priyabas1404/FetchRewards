@@ -5,7 +5,6 @@ import androidx.lifecycle.Observer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
-
 @ExperimentalCoroutinesApi
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,

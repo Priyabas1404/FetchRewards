@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: ListItemsAdapter
-    private lateinit var itemViewModel: ItemViewModel
+    lateinit var itemViewModel: ItemViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

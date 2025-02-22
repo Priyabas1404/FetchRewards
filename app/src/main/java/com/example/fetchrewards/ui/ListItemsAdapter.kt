@@ -1,68 +1,39 @@
 package com.example.fetchrewards.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fetchrewards.R
 import com.example.fetchrewards.data.vo.GroupedItem
-import com.example.fetchrewards.data.vo.ListItem
-import com.example.fetchrewards.databinding.ItemHeaderBinding
-import com.example.fetchrewards.databinding.ItemListBinding
+import com.example.fetchrewards.databinding.ItemGroupBinding
 
-class ListItemsAdapter(private val groupedItems: List<GroupedItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    companion object {
-        const val VIEW_TYPE_HEADER = 0
-        const val VIEW_TYPE_ITEM = 1
-    }
+class ListItemsAdapter(private val groupedItems: List<GroupedItem>) : RecyclerView.Adapter<ListItemsAdapter.GroupViewHolder>() {
+
     override fun getItemCount(): Int {
-        return  return groupedItems.sumOf { it.items.size } + groupedItems.size
-    }
-    override fun getItemViewType(position: Int): Int {
-        var currentPos = position
-        for (group in groupedItems) {
-            if (currentPos == 0) return VIEW_TYPE_HEADER
-            currentPos -= group.items.size + 1
-        }
-        return VIEW_TYPE_ITEM
-    }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_HEADER -> {
-                val binding = ItemHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                HeaderViewHolder(binding)
-            }
-            VIEW_TYPE_ITEM -> {
-                val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ItemViewHolder(binding)
-            }
-            else -> throw IllegalArgumentException("Invalid view type")
-        }
+        return groupedItems.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var groupPosition = 0
-        var itemPosition = position
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
+        val binding = ItemGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return GroupViewHolder(binding)
+    }
 
-        for (i in groupedItems.indices) {
-            val group = groupedItems[i]
-            if (itemPosition < group.items.size) {
-                groupPosition = i
-                break
-            } else {
-                itemPosition -= group.items.size
-            }
-        }
+    override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
+        val group = groupedItems[position]
 
-        when (holder) {
-            is HeaderViewHolder -> {
-                val group = groupedItems[groupPosition]
-                holder.binding.ListId.text = "List ID: ${group.listId}"
-            }
-            is ItemViewHolder -> {
-                val item = groupedItems[groupPosition].items[itemPosition]
-                holder.binding.Name.text = item.name
-            }
+        holder.binding.ListId.text = "List ID: ${group.listId}"
+
+        holder.binding.ItemContainer.removeAllViews()
+
+        for (item in group.items) {
+            val itemTextView = TextView(holder.binding.root.context)
+            itemTextView.text = item.name
+            itemTextView.setPadding(0, 8, 0, 8)
+            holder.binding.ItemContainer.addView(itemTextView)
         }
-        }
-    class HeaderViewHolder(val binding: ItemHeaderBinding) : RecyclerView.ViewHolder(binding.root)
-    class ItemViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
+    }
+    class GroupViewHolder(val binding: ItemGroupBinding) : RecyclerView.ViewHolder(binding.root)
 }

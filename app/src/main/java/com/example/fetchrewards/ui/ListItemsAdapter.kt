@@ -1,12 +1,9 @@
 package com.example.fetchrewards.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fetchrewards.R
 import com.example.fetchrewards.data.vo.GroupedItem
 import com.example.fetchrewards.databinding.ItemGroupBinding
 

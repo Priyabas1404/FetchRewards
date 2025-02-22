@@ -1,19 +1,13 @@
     package com.example.fetchrewards.ui
 
-    import android.util.Log
     import androidx.lifecycle.LiveData
     import androidx.lifecycle.MutableLiveData
     import androidx.lifecycle.ViewModel
     import androidx.lifecycle.viewModelScope
     import com.example.fetchrewards.data.repository.ItemRepository
     import com.example.fetchrewards.data.vo.GroupedItem
-    import com.example.fetchrewards.data.vo.ListItem
     import dagger.hilt.android.lifecycle.HiltViewModel
-    import kotlinx.coroutines.Dispatchers
-    import kotlinx.coroutines.flow.MutableStateFlow
-    import kotlinx.coroutines.flow.StateFlow
     import kotlinx.coroutines.launch
-    import kotlinx.coroutines.withContext
     import javax.inject.Inject
 
     @HiltViewModel
